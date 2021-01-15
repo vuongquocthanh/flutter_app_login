@@ -13,6 +13,8 @@ class MyLoginState extends State<MyLogin> {
   final _formKey = GlobalKey<FormState>();
   final tffUsername = TextEditingController();
   final tffPassword = TextEditingController();
+  var imgUrl = "";
+  var imgVisible = false;
 
   @override
   void initState() {
@@ -39,7 +41,6 @@ class MyLoginState extends State<MyLogin> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.network("https://upload.wikimedia.org/wikipedia/commons/a/ac/Oikya_Front_Logo.png"),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -95,15 +96,28 @@ class MyLoginState extends State<MyLogin> {
                 padding: EdgeInsets.only(left: 8, bottom: 8, right: 8),
                 child: RaisedButton(
                   color: Colors.blue,
-                  child: Text("Login", style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      showSnackbar(
-                          "You already login with account: ${tffUsername.text}");
+                      // showSnackbar(
+                      //     "You already login with account: ${tffUsername.text}");
+                      setState(() {
+                        imgUrl =
+                            "https://thumbs.dreamstime.com/b/happy-cat-closeup-portrait-funny-smile-cardboard-young-blue-background-102078702.jpg";
+                        imgVisible = true;
+                      });
                     }
                   },
                 ),
-              )
+              ),
+              Visibility(
+                child: FadeInImage.assetNetwork(
+                    placeholder: "assets/images/Ellipsis.gif", image: imgUrl),
+                visible: imgVisible,
+              ),
             ],
           ),
         ));
